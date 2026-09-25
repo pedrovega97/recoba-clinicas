@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>recoba.app — Cierra presupuestos, financia y blinda</title>
+<meta name="theme-color" content="#0B2545">
+<style>
+  :root{
+    --navy:#0B2545;
+    --navy-2:#123663;
+    --teal:#13A89E;
+    --teal-dark:#0e8a81;
+    --red:#D64550;
+    --red-bg:#FDF1F2;
+    --ink:#0B2545;
+    --grey:#4A5568;
+    --line:#E2E8EC;
+    --bg:#FFFFFF;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+  .topbar{height:6px;background:var(--teal);}
+
+  /* HERO */
+  .hero{background:var(--navy);color:#fff;padding:48px 0 56px;}
+  .logo{font-weight:700;font-size:1.3rem;letter-spacing:-0.02em;margin-bottom:40px;}
+  .logo span{color:var(--teal);}
+  h1{
+    font-size:clamp(2rem,5vw,2.9rem);
+    line-height:1.15;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:0 0 20px;
+    max-width:20ch;
+  }
+  h1 em{color:var(--teal);font-style:normal;}
+  .hero-sub{
+    font-size:1.05rem;
+    line-height:1.55;
+    color:#D5E3EA;
+    max-width:56ch;
+    margin:0 0 28px;
+  }
+  .quote-box{
+    background:var(--navy-2);
+    border-left:4px solid var(--teal);
+    border-radius:8px;
+    padding:18px 22px;
+    font-size:0.98rem;
+    line-height:1.6;
+    color:#fff;
+    max-width:60ch;
+  }
+
+  section{padding:56px 0;}
+  .eyebrow{
+    font-size:0.8rem;
+    font-weight:700;
+    color:var(--red);
+    letter-spacing:0.02em;
+    margin-bottom:10px;
+  }
+  .eyebrow.teal{color:var(--teal);}
+  h2{font-size:1.35rem;line-height:1.4;font-weight:700;margin:0 0 30px;max-width:36ch;}
+
+  /* PROBLEMA */
+  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .problem-card{
+    background:var(--red-bg);
+    border-radius:10px;
+    padding:22px 22px 26px;
+  }
+  .problem-card .num{
+    width:30px;height:30px;border-radius:50%;
+    background:var(--red);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:0.95rem;margin-bottom:12px;
+  }
+  .problem-card h3{font-size:1.02rem;margin:0 0 12px;font-weight:700;}
+  .problem-card ul{margin:0;padding-left:18px;}
+  .problem-card li{font-size:0.92rem;line-height:1.5;color:var(--grey);margin-bottom:6px;}
+  .problem-card li::marker{color:var(--red);}
+
+  /* SOLUCION */
+  .steps{display:flex;flex-direction:column;}
+  .step{
+    display:flex;gap:20px;
+    background:#EEF6F6;
+    border-radius:12px;
+    padding:22px 24px;
+    margin-bottom:10px;
+  }
+  .step .badge{
+    flex:0 0 auto;
+    width:40px;height:40px;border-radius:50%;
+    background:var(--teal);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:1.1rem;
+  }
+  .step h3{font-size:1.05rem;margin:2px 0 8px;font-weight:700;}
+  .step p{margin:0;font-size:0.95rem;line-height:1.55;color:var(--grey);}
+  .connector{
+    width:2px;height:16px;margin-left:39px;
+    border-left:2px dashed var(--teal);
+  }
+
+  /* PRECIO */
+  .price-card{
+    background:var(--navy);color:#fff;
+    border-radius:16px;
+    padding:36px 34px 34px;
+  }
+  .price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+  .price{font-size:3.4rem;font-weight:700;letter-spacing:-0.02em;}
+  .price-unit{font-size:1.05rem;color:#D5E3EA;}
+  .pill{
+    display:inline-block;
+    background:var(--teal);color:#fff;
+    font-weight:700;font-size:0.85rem;
+    padding:8px 18px;border-radius:20px;
+    margin-bottom:24px;
+  }
+  .price-list{list-style:none;margin:0;padding:0;}
+  .price-list li{
+    display:flex;gap:14px;align-items:flex-start;
+    font-size:0.98rem;line-height:1.55;color:#fff;
+    margin-bottom:16px;
+  }
+  .check{
+    flex:0 0 auto;width:22px;height:22px;border-radius:50%;
+    background:var(--teal);
+    position:relative;margin-top:2px;
+  }
+  .check::after{
+    content:"";position:absolute;left:6px;top:10px;
+    width:9px;height:5px;
+    border-left:2px solid #fff;border-bottom:2px solid #fff;
+    transform:rotate(-45deg);
+  }
+  .cta{
+    display:block;
+    background:var(--teal);color:#fff;
+    text-align:center;
+    text-decoration:none;
+    font-weight:700;font-size:1.1rem;
+    padding:20px 24px;
+    border-radius:32px;
+    margin-top:32px;
+    transition:background .15s ease;
+  }
+  .cta:hover{background:var(--teal-dark);}
+  .cta:focus-visible{outline:3px solid var(--navy);outline-offset:3px;}
+
+  footer{
+    padding:26px 0 40px;
+    display:flex;justify-content:space-between;
+    font-size:0.85rem;color:var(--grey);
+    border-top:1px solid var(--line);
+  }
+
+  @media (max-width:640px){
+    .problem-grid{grid-template-columns:1fr;}
+    .hero{padding:36px 0 44px;}
+    section{padding:40px 0;}
+    .price-card{padding:28px 22px;}
+    .price{font-size:2.6rem;}
+  }
+</style>
+</head>
+<body>
+  <div class="topbar"></div>
+
+  <div class="hero">
+    <div class="wrap">
+      <div class="logo">recoba<span>.app</span></div>
+      <h1>Cierra <em>8 de cada 10</em> tratamientos en la primera cita.</h1>
+      <p class="hero-sub">Pasa del "me lo pienso" a la financiación y firma del tratamiento antes de que el paciente salga por la puerta.</p>
+      <div class="quote-box">Tu financiera integrada te ingresa el dinero en minutos. Nosotros blindamos legalmente cada fase del presupuesto para que te olvides de cancelaciones, devoluciones y reclamaciones.</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">EL PROBLEMA</div>
+      <h2>Cada vez que un presupuesto no se financia en el acto, ocurre una de estas dos cosas en tu clínica:</h2>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="num">1</div>
+          <h3>El paciente se va con el "me lo pienso"</h3>
+          <ul>
+            <li>El 70% de los tratamientos no se ejecutan jamás.</li>
+            <li>Has perdido el coste del gabinete y el tiempo del doctor.</li>
+          </ul>
+        </div>
+        <div class="problem-card">
+          <div class="num">2</div>
+          <h3>La clínica hace de "Banco"</h3>
+          <ul>
+            <li>Dejas que el paciente pague "a plazos en recepción".</li>
+            <li>Asumes el riesgo de impago, discusiones por retrasos y tensión en el mostrador si abandona el tratamiento a la mitad.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#FAFBFB;">
+    <div class="wrap">
+      <div class="eyebrow teal">LA SOLUCIÓN</div>
+      <h2>En una única secuencia de 5 minutos: el presupuesto cerrado, el dinero recibido y el trabajo blindado.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="badge">1</div>
+          <div>
+            <h3>Del "me interesa" al "así lo pago"</h3>
+            <p>Muestras las distintas opciones de tratamiento al paciente, elaboras un desglose económico personalizado en directo y configuras las cuotas y condiciones de financiación que mejor os encajen.</p>
+          </div>
+        </div>
+        <div class="connector"></div>
+        <div class="step">
+          <div class="badge">2</div>
+          <div>
+            <h3>Firma y blindaje legal automático</h3>
+            <p>Antes de tramitar la financiación, el paciente firma digitalmente cada fase del tratamiento. Dejas protegido el trabajo ejecutado, las horas de gabinete y los materiales personalizados con plena validez legal (eIDAS) para que no tengas que asumir una devolución o un coste de laboratorio.</p>
+          </div>
+        </div>
+        <div class="connector"></div>
+        <div class="step">
+          <div class="badge">3</div>
+          <div>
+            <h3>Financiación aprobada en el momento</h3>
+            <p>Con la firma completada, tramitas la solicitud con la pasarela de financiación integrada en la misma pantalla. El paciente valida sus datos en 30 segundos desde su móvil sin aportar papeles, la financiación se aprueba en directo y te ingresan el dinero en minutos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="eyebrow teal">PRECIO</div>
+      <h2>Pruébalo 7 días gratis. Sin compromiso.</h2>
+      <div class="price-card">
+        <div class="price-row">
+          <span class="price">59 €</span>
+          <span class="price-unit">/ mes por clínica</span>
+        </div>
+        <span class="pill">Cero comisiones por financiación</span>
+        <ul class="price-list">
+          <li><span class="check"></span>Conexión nativa e ilimitada con tu cuenta comercial de la financiera (Pepper, etc.).</li>
+          <li><span class="check"></span>Firmas digitales eIDAS ilimitadas con blindaje legal por fases.</li>
+          <li><span class="check"></span>Plantillas jurídicas integradas (Art. 103 m LGDCU) para proteger tus materiales y gabinetes.</li>
+          <li><span class="check"></span>Soporte y puesta en marcha para ti y tu equipo.</li>
+        </ul>
+      </div>
+      <a class="cta" href="https://recoba.app">Empieza tu prueba gratuita en recoba.app</a>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer>
+      <span>recoba.app</span>
+      <span>&copy; 2026</span>
+    </footer>
+  </div>
+</body>
+</html>
