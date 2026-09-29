@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>recoba.app — Cierra presupuestos, financia y blinda</title>
+<title>recoba.app — De un presupuesto a un tratamiento</title>
 <meta name="theme-color" content="#0B2545">
 <style>
   :root{
@@ -33,7 +33,19 @@
   .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
   .topbar{height:6px;background:var(--teal);}
 
-  /* HERO */
+  .eyebrow{
+    font-size:0.8rem;
+    font-weight:700;
+    color:var(--red);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .eyebrow.teal{color:var(--teal);}
+  .eyebrow.light{color:#D5E3EA;}
+  h2{font-size:1.35rem;line-height:1.4;font-weight:700;margin:0 0 24px;max-width:36ch;}
+
+  /* ACTO 1 — HERO */
   .hero{background:var(--navy);color:#fff;padding:48px 0 56px;}
   .logo{font-weight:700;font-size:1.3rem;letter-spacing:-0.02em;margin-bottom:40px;}
   .logo span{color:var(--teal);}
@@ -43,137 +55,306 @@
     font-weight:700;
     letter-spacing:-0.01em;
     margin:0 0 20px;
-    max-width:20ch;
+    max-width:22ch;
   }
   h1 em{color:var(--teal);font-style:normal;}
   .hero-sub{
     font-size:1.05rem;
     line-height:1.55;
     color:#D5E3EA;
-    max-width:56ch;
+    max-width:48ch;
     margin:0 0 28px;
   }
-  .quote-box{
-    background:var(--navy-2);
-    border-left:4px solid var(--teal);
-    border-radius:8px;
-    padding:18px 22px;
-    font-size:0.98rem;
-    line-height:1.6;
-    color:#fff;
-    max-width:60ch;
-  }
-
-  section{padding:56px 0;}
-  .eyebrow{
-    font-size:0.8rem;
+  .flow-sequence{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px 14px;
+    font-size:1rem;
     font-weight:700;
-    color:var(--red);
-    letter-spacing:0.02em;
-    margin-bottom:10px;
+    color:#fff;
+    max-width:44ch;
   }
-  .eyebrow.teal{color:var(--teal);}
-  h2{font-size:1.35rem;line-height:1.4;font-weight:700;margin:0 0 30px;max-width:36ch;}
+  .flow-sequence span{color:var(--teal);font-weight:400;}
 
-  /* PROBLEMA */
-  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-  .problem-card{
-    background:var(--red-bg);
-    border-radius:10px;
-    padding:22px 22px 26px;
+  /* ACTO 2 — PROBLEMA */
+  section{padding:56px 0;}
+  .problem-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-bottom:28px;
   }
-  .problem-card .num{
-    width:30px;height:30px;border-radius:50%;
-    background:var(--red);color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    font-weight:700;font-size:0.95rem;margin-bottom:12px;
-  }
-  .problem-card h3{font-size:1.02rem;margin:0 0 12px;font-weight:700;}
-  .problem-card ul{margin:0;padding-left:18px;}
-  .problem-card li{font-size:0.92rem;line-height:1.5;color:var(--grey);margin-bottom:6px;}
-  .problem-card li::marker{color:var(--red);}
-
-  /* SOLUCION */
-  .steps{display:flex;flex-direction:column;}
-  .step{
-    display:flex;gap:20px;
-    background:#EEF6F6;
+  .problem-face{
     border-radius:12px;
-    padding:22px 24px;
-    margin-bottom:10px;
+    padding:24px 24px 28px;
+  }
+  .problem-face.patient{background:var(--red-bg);}
+  .problem-face.clinic{background:#F4F6F8;}
+  .problem-face h3{
+    font-size:1rem;
+    font-weight:700;
+    margin:0 0 14px;
+    line-height:1.35;
+  }
+  .quote-large{
+    font-size:1.5rem;
+    font-weight:700;
+    line-height:1.25;
+    margin:0 0 14px;
+    color:var(--ink);
+  }
+  .problem-face p{
+    margin:0;
+    font-size:0.95rem;
+    line-height:1.55;
+    color:var(--grey);
+  }
+  .risk-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:14px;
+  }
+  .chip{
+    font-size:0.82rem;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:20px;
+    background:#fff;
+    color:var(--red);
+    border:1px solid rgba(214,69,80,0.2);
+  }
+  .problem-bridge{
+    font-size:1rem;
+    line-height:1.55;
+    font-weight:700;
+    max-width:52ch;
+    margin:0;
+  }
+
+  /* ACTO 3 — CÓMO FUNCIONA */
+  .solution{background:#FAFBFB;}
+  .solution-intro{
+    font-size:1rem;
+    line-height:1.55;
+    color:var(--grey);
+    max-width:52ch;
+    margin:0 0 28px;
+  }
+  .solution-intro strong{color:var(--ink);}
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  .step{
+    background:#fff;
+    border-radius:12px;
+    padding:24px 22px;
+    border:1px solid var(--line);
   }
   .step .badge{
-    flex:0 0 auto;
-    width:40px;height:40px;border-radius:50%;
-    background:var(--teal);color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    font-weight:700;font-size:1.1rem;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:36px;height:36px;
+    border-radius:50%;
+    background:var(--teal);
+    color:#fff;
+    font-weight:700;
+    font-size:0.8rem;
+    margin-bottom:14px;
   }
-  .step h3{font-size:1.05rem;margin:2px 0 8px;font-weight:700;}
-  .step p{margin:0;font-size:0.95rem;line-height:1.55;color:var(--grey);}
-  .connector{
-    width:2px;height:16px;margin-left:39px;
-    border-left:2px dashed var(--teal);
+  .step h3{
+    font-size:1.05rem;
+    font-weight:700;
+    margin:0 0 10px;
+    color:var(--teal);
+  }
+  .step p{
+    margin:0;
+    font-size:0.92rem;
+    line-height:1.55;
+    color:var(--grey);
+  }
+  .steps-closing{
+    font-size:1rem;
+    font-weight:700;
+    line-height:1.5;
+    margin:28px 0 0;
+    max-width:40ch;
   }
 
-  /* PRECIO */
-  .price-card{
-    background:var(--navy);color:#fff;
-    border-radius:16px;
-    padding:36px 34px 34px;
+  /* FRANJA CONFIANZA */
+  .trust-strip{
+    padding:20px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:#fff;
   }
-  .price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+  .trust-items{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:12px 28px;
+  }
+  .trust-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.88rem;
+    font-weight:600;
+    color:var(--grey);
+  }
+  .trust-icon{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    background:var(--teal);
+    position:relative;
+  }
+  .trust-icon::after{
+    content:"";position:absolute;left:5px;top:9px;
+    width:8px;height:4px;
+    border-left:2px solid #fff;border-bottom:2px solid #fff;
+    transform:rotate(-45deg);
+  }
+
+  /* ACTO 4 — DECISIÓN */
+  .decision{
+    background:var(--navy);
+    color:#fff;
+    padding:56px 0;
+    text-align:center;
+  }
+  .decision h2{
+    max-width:none;
+    margin:0 auto 28px;
+    color:#fff;
+  }
+  .price-card{
+    background:var(--navy-2);
+    border-radius:16px;
+    padding:36px 34px 32px;
+    text-align:left;
+    max-width:640px;
+    margin:0 auto;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .price-row{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+  }
   .price{font-size:3.4rem;font-weight:700;letter-spacing:-0.02em;}
   .price-unit{font-size:1.05rem;color:#D5E3EA;}
   .pill{
     display:inline-block;
-    background:var(--teal);color:#fff;
-    font-weight:700;font-size:0.85rem;
-    padding:8px 18px;border-radius:20px;
+    background:var(--teal);
+    color:#fff;
+    font-weight:700;
+    font-size:0.85rem;
+    padding:8px 18px;
+    border-radius:20px;
     margin-bottom:24px;
   }
-  .price-list{list-style:none;margin:0;padding:0;}
+  .price-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px 20px;
+  }
   .price-list li{
-    display:flex;gap:14px;align-items:flex-start;
-    font-size:0.98rem;line-height:1.55;color:#fff;
-    margin-bottom:16px;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    font-size:0.92rem;
+    line-height:1.45;
+    color:#fff;
   }
   .check{
-    flex:0 0 auto;width:22px;height:22px;border-radius:50%;
+    flex:0 0 auto;
+    width:18px;height:18px;
+    border-radius:50%;
     background:var(--teal);
-    position:relative;margin-top:2px;
+    position:relative;
+    margin-top:2px;
   }
   .check::after{
-    content:"";position:absolute;left:6px;top:10px;
-    width:9px;height:5px;
+    content:"";position:absolute;left:5px;top:8px;
+    width:7px;height:4px;
     border-left:2px solid #fff;border-bottom:2px solid #fff;
     transform:rotate(-45deg);
   }
+  .price-footnote{
+    font-size:0.88rem;
+    line-height:1.5;
+    color:#D5E3EA;
+    max-width:480px;
+    margin:16px auto 0;
+    text-align:center;
+  }
+  .closing-lines{margin:36px 0 12px;}
+  .closing-lines p{
+    margin:0;
+    line-height:1.4;
+  }
+  .closing-wait{
+    font-size:1.05rem;
+    color:#D5E3EA;
+    font-weight:400;
+    margin-bottom:6px;
+  }
+  .closing-bold{
+    font-size:clamp(1.35rem,4vw,1.75rem);
+    font-weight:700;
+    color:#fff;
+  }
+  .trial-note{
+    font-size:0.92rem;
+    color:#D5E3EA;
+    margin:0 0 28px;
+    line-height:1.5;
+  }
   .cta{
-    display:block;
-    background:var(--teal);color:#fff;
+    display:inline-block;
+    background:var(--teal);
+    color:#fff;
     text-align:center;
     text-decoration:none;
-    font-weight:700;font-size:1.1rem;
-    padding:20px 24px;
+    font-weight:700;
+    font-size:1.1rem;
+    padding:20px 32px;
     border-radius:32px;
-    margin-top:32px;
     transition:background .15s ease;
   }
   .cta:hover{background:var(--teal-dark);}
-  .cta:focus-visible{outline:3px solid var(--navy);outline-offset:3px;}
+  .cta:focus-visible{outline:3px solid #fff;outline-offset:3px;}
 
   footer{
     padding:26px 0 40px;
-    display:flex;justify-content:space-between;
-    font-size:0.85rem;color:var(--grey);
+    display:flex;
+    justify-content:space-between;
+    font-size:0.85rem;
+    color:var(--grey);
     border-top:1px solid var(--line);
   }
 
-  @media (max-width:640px){
+  @media (max-width:720px){
     .problem-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .price-list{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
     .hero{padding:36px 0 44px;}
     section{padding:40px 0;}
+    .decision{padding:40px 0;}
     .price-card{padding:28px 22px;}
     .price{font-size:2.6rem;}
   }
@@ -182,76 +363,89 @@
 <body>
   <div class="topbar"></div>
 
+  <!-- ACTO 1 — QUÉ ES -->
   <div class="hero">
     <div class="wrap">
       <div class="logo">recoba<span>.app</span></div>
-      <h1>Cierra <em>8 de cada 10</em> tratamientos en la primera cita.</h1>
-      <p class="hero-sub">Pasa del "me lo pienso" a la financiación y firma del tratamiento antes de que el paciente salga por la puerta.</p>
-      <div class="quote-box">Tu financiera integrada te ingresa el dinero en minutos. Nosotros blindamos legalmente cada fase del presupuesto para que te olvides de cancelaciones, devoluciones y reclamaciones.</div>
+      <div class="eyebrow light">Qué es</div>
+      <h1>De un presupuesto a un tratamiento. <em>En 5 minutos.</em></h1>
+      <p class="hero-sub">Elimina el "me lo pienso" antes de que el paciente salga de la clínica.</p>
+      <div class="flow-sequence">
+        Presupuesto <span>→</span> Firma <span>→</span> Dinero
+      </div>
     </div>
   </div>
 
+  <!-- ACTO 2 — EL PROBLEMA -->
   <section>
     <div class="wrap">
-      <div class="eyebrow">EL PROBLEMA</div>
-      <h2>Cada vez que un presupuesto no se financia en el acto, ocurre una de estas dos cosas en tu clínica:</h2>
+      <div class="eyebrow">El problema</div>
+      <h2>¿Cuántos tratamientos pierdes después de haber hecho el trabajo?</h2>
       <div class="problem-grid">
-        <div class="problem-card">
-          <div class="num">1</div>
-          <h3>El paciente se va con el "me lo pienso"</h3>
-          <ul>
-            <li>El 70% de los tratamientos no se ejecutan jamás.</li>
-            <li>Has perdido el coste del gabinete y el tiempo del doctor.</li>
-          </ul>
+        <div class="problem-face patient">
+          <h3>El paciente se va</h3>
+          <p class="quote-large">"Me lo pienso."</p>
+          <p>Cuando sale por la puerta, el presupuesto deja de ser una decisión. Llamadas, WhatsApps, seguimientos. Y, muchas veces, nada.</p>
         </div>
-        <div class="problem-card">
-          <div class="num">2</div>
-          <h3>La clínica hace de "Banco"</h3>
-          <ul>
-            <li>Dejas que el paciente pague "a plazos en recepción".</li>
-            <li>Asumes el riesgo de impago, discusiones por retrasos y tensión en el mostrador si abandona el tratamiento a la mitad.</li>
-          </ul>
+        <div class="problem-face clinic">
+          <h3>La clínica hace de banco</h3>
+          <p>Si el paciente paga a plazos en recepción, el riesgo es tuyo.</p>
+          <div class="risk-chips">
+            <span class="chip">Impagos</span>
+            <span class="chip">Abandonos</span>
+            <span class="chip">Discusiones</span>
+            <span class="chip">Sin cobrar</span>
+          </div>
         </div>
       </div>
+      <p class="problem-bridge">Recoba está diseñada para que la decisión ocurra cuando el paciente está delante de ti.</p>
     </div>
   </section>
 
-  <section style="background:#FAFBFB;">
+  <!-- ACTO 3 — CÓMO FUNCIONA -->
+  <section class="solution">
     <div class="wrap">
-      <div class="eyebrow teal">LA SOLUCIÓN</div>
-      <h2>En una única secuencia de 5 minutos: el presupuesto cerrado, el dinero recibido y el trabajo blindado.</h2>
+      <div class="eyebrow teal">Cómo funciona</div>
+      <h2>No entregues presupuestos. Cierra tratamientos.</h2>
+      <p class="solution-intro"><strong>Recoba no es otra herramienta para tu clínica. Es la última parte del presupuesto.</strong> Lo que falta muchas veces ocurre en los últimos cinco minutos: que el paciente pase de querer hacerlo a hacerlo.</p>
       <div class="steps">
         <div class="step">
-          <div class="badge">1</div>
-          <div>
-            <h3>Del "me interesa" al "así lo pago"</h3>
-            <p>Muestras las distintas opciones de tratamiento al paciente, elaboras un desglose económico personalizado en directo y configuras las cuotas y condiciones de financiación que mejor os encajen.</p>
-          </div>
+          <div class="badge">01</div>
+          <h3>Presupuesto</h3>
+          <p>Preparas el tratamiento delante del paciente y muestras cómo puede pagarlo. No se va a pensarlo porque ya sabe cómo hacerlo.</p>
         </div>
-        <div class="connector"></div>
         <div class="step">
-          <div class="badge">2</div>
-          <div>
-            <h3>Firma y blindaje legal automático</h3>
-            <p>Antes de tramitar la financiación, el paciente firma digitalmente cada fase del tratamiento. Dejas protegido el trabajo ejecutado, las horas de gabinete y los materiales personalizados con plena validez legal (eIDAS) para que no tengas que asumir una devolución o un coste de laboratorio.</p>
-          </div>
+          <div class="badge">02</div>
+          <h3>Firma</h3>
+          <p>Firma digitalmente cada fase con validez legal eIDAS. Tu presupuesto deja de ser una propuesta y se convierte en un compromiso.</p>
         </div>
-        <div class="connector"></div>
         <div class="step">
-          <div class="badge">3</div>
-          <div>
-            <h3>Financiación aprobada en el momento</h3>
-            <p>Con la firma completada, tramitas la solicitud con la pasarela de financiación integrada en la misma pantalla. El paciente valida sus datos en 30 segundos desde su móvil sin aportar papeles, la financiación se aprueba en directo y te ingresan el dinero en minutos.</p>
-          </div>
+          <div class="badge">03</div>
+          <h3>Dinero</h3>
+          <p>Tramitas la financiación desde Recoba. El paciente valida desde su móvil y tu financiera te ingresa el dinero en minutos.</p>
         </div>
       </div>
+      <p class="steps-closing">Una conversación. Una decisión. Un tratamiento cerrado.</p>
     </div>
   </section>
 
-  <section>
+  <!-- FRANJA CONFIANZA -->
+  <div class="trust-strip">
     <div class="wrap">
-      <div class="eyebrow teal">PRECIO</div>
-      <h2>Pruébalo 7 días gratis. Sin compromiso.</h2>
+      <div class="trust-items">
+        <div class="trust-item"><span class="trust-icon"></span> Firmas digitales eIDAS</div>
+        <div class="trust-item"><span class="trust-icon"></span> Conexión con tu financiera</div>
+        <div class="trust-item"><span class="trust-icon"></span> Plantillas jurídicas integradas</div>
+        <div class="trust-item"><span class="trust-icon"></span> Soporte de puesta en marcha</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTO 4 — DECISIÓN -->
+  <section class="decision">
+    <div class="wrap">
+      <div class="eyebrow light">Precio</div>
+      <h2>¿Cuánto vale para ti un tratamiento que no se pierde?</h2>
       <div class="price-card">
         <div class="price-row">
           <span class="price">59 €</span>
@@ -259,20 +453,28 @@
         </div>
         <span class="pill">Cero comisiones por financiación</span>
         <ul class="price-list">
-          <li><span class="check"></span>Conexión nativa e ilimitada con tu cuenta comercial de la financiera (Pepper, etc.).</li>
-          <li><span class="check"></span>Firmas digitales eIDAS ilimitadas con blindaje legal por fases.</li>
-          <li><span class="check"></span>Plantillas jurídicas integradas (Art. 103 m LGDCU) para proteger tus materiales y gabinetes.</li>
-          <li><span class="check"></span>Soporte y puesta en marcha para ti y tu equipo.</li>
+          <li><span class="check"></span>Presupuestos configurables</li>
+          <li><span class="check"></span>Conexión con tu financiera</li>
+          <li><span class="check"></span>Firmas eIDAS ilimitadas</li>
+          <li><span class="check"></span>Protege tu trabajo</li>
+          <li><span class="check"></span>Plantillas jurídicas</li>
+          <li><span class="check"></span>Soporte para tu equipo</li>
         </ul>
       </div>
-      <a class="cta" href="mailto:hola@recoba.app">Contacta con nosotros en hola@recoba.app</a>
+      <p class="price-footnote">Un único tratamiento recuperado puede pagar Recoba durante meses.</p>
+      <div class="closing-lines">
+        <p class="closing-wait">La clínica que entrega presupuestos espera.</p>
+        <p class="closing-bold">La clínica que los cierra, decide.</p>
+      </div>
+      <p class="trial-note">Prueba Recoba gratis durante 7 días. Sin compromiso.</p>
+      <a class="cta" href="mailto:hola@recoba.app">Contacta con nosotros</a>
     </div>
   </section>
 
   <div class="wrap">
     <footer>
       <span>recoba.app</span>
-      <span>&copy; 2026</span>
+      <span>&copy; 2026 Recoba</span>
     </footer>
   </div>
 </body>
