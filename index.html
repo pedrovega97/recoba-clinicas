@@ -3,479 +3,275 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>recoba.app — De un presupuesto a un tratamiento</title>
-<meta name="theme-color" content="#0B2545">
-<style>
-  :root{
-    --navy:#0B2545;
-    --navy-2:#123663;
-    --teal:#13A89E;
-    --teal-dark:#0e8a81;
-    --red:#D64550;
-    --red-bg:#FDF1F2;
-    --ink:#0B2545;
-    --grey:#4A5568;
-    --line:#E2E8EC;
-    --bg:#FFFFFF;
-    box-sizing:border-box;
-    padding-top:env(safe-area-inset-top,0px);
-    padding-bottom:env(safe-area-inset-bottom,0px);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-padding-top:env(safe-area-inset-top,0px);}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
-  .topbar{height:6px;background:var(--teal);}
-
-  .eyebrow{
-    font-size:0.8rem;
-    font-weight:700;
-    color:var(--red);
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    margin-bottom:10px;
-  }
-  .eyebrow.teal{color:var(--teal);}
-  .eyebrow.light{color:#D5E3EA;}
-  h2{font-size:1.35rem;line-height:1.4;font-weight:700;margin:0 0 24px;max-width:36ch;}
-
-  /* ACTO 1 — HERO */
-  .hero{background:var(--navy);color:#fff;padding:48px 0 56px;}
-  .logo{font-weight:700;font-size:1.3rem;letter-spacing:-0.02em;margin-bottom:40px;}
-  .logo span{color:var(--teal);}
-  h1{
-    font-size:clamp(2rem,5vw,2.9rem);
-    line-height:1.15;
-    font-weight:700;
-    letter-spacing:-0.01em;
-    margin:0 0 20px;
-    max-width:22ch;
-  }
-  h1 em{color:var(--teal);font-style:normal;}
-  .hero-sub{
-    font-size:1.05rem;
-    line-height:1.55;
-    color:#D5E3EA;
-    max-width:48ch;
-    margin:0 0 28px;
-  }
-  .flow-sequence{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:10px 14px;
-    font-size:1rem;
-    font-weight:700;
-    color:#fff;
-    max-width:44ch;
-  }
-  .flow-sequence span{color:var(--teal);font-weight:400;}
-
-  /* ACTO 2 — PROBLEMA */
-  section{padding:56px 0;}
-  .problem-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-    margin-bottom:28px;
-  }
-  .problem-face{
-    border-radius:12px;
-    padding:24px 24px 28px;
-  }
-  .problem-face.patient{background:var(--red-bg);}
-  .problem-face.clinic{background:#F4F6F8;}
-  .problem-face h3{
-    font-size:1rem;
-    font-weight:700;
-    margin:0 0 14px;
-    line-height:1.35;
-  }
-  .quote-large{
-    font-size:1.5rem;
-    font-weight:700;
-    line-height:1.25;
-    margin:0 0 14px;
-    color:var(--ink);
-  }
-  .problem-face p{
-    margin:0;
-    font-size:0.95rem;
-    line-height:1.55;
-    color:var(--grey);
-  }
-  .risk-chips{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:14px;
-  }
-  .chip{
-    font-size:0.82rem;
-    font-weight:600;
-    padding:6px 12px;
-    border-radius:20px;
-    background:#fff;
-    color:var(--red);
-    border:1px solid rgba(214,69,80,0.2);
-  }
-  .problem-bridge{
-    font-size:1rem;
-    line-height:1.55;
-    font-weight:700;
-    max-width:52ch;
-    margin:0;
-  }
-
-  /* ACTO 3 — CÓMO FUNCIONA */
-  .solution{background:#FAFBFB;}
-  .solution-intro{
-    font-size:1rem;
-    line-height:1.55;
-    color:var(--grey);
-    max-width:52ch;
-    margin:0 0 28px;
-  }
-  .solution-intro strong{color:var(--ink);}
-  .steps{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-  }
-  .step{
-    background:#fff;
-    border-radius:12px;
-    padding:24px 22px;
-    border:1px solid var(--line);
-  }
-  .step .badge{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:36px;height:36px;
-    border-radius:50%;
-    background:var(--teal);
-    color:#fff;
-    font-weight:700;
-    font-size:0.8rem;
-    margin-bottom:14px;
-  }
-  .step h3{
-    font-size:1.05rem;
-    font-weight:700;
-    margin:0 0 10px;
-    color:var(--teal);
-  }
-  .step p{
-    margin:0;
-    font-size:0.92rem;
-    line-height:1.55;
-    color:var(--grey);
-  }
-  .steps-closing{
-    font-size:1rem;
-    font-weight:700;
-    line-height:1.5;
-    margin:28px 0 0;
-    max-width:40ch;
-  }
-
-  /* FRANJA CONFIANZA */
-  .trust-strip{
-    padding:20px 0;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    background:#fff;
-  }
-  .trust-items{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    align-items:center;
-    gap:12px 28px;
-  }
-  .trust-item{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-size:0.88rem;
-    font-weight:600;
-    color:var(--grey);
-  }
-  .trust-icon{
-    flex:0 0 auto;
-    width:20px;height:20px;
-    border-radius:50%;
-    background:var(--teal);
-    position:relative;
-  }
-  .trust-icon::after{
-    content:"";position:absolute;left:5px;top:9px;
-    width:8px;height:4px;
-    border-left:2px solid #fff;border-bottom:2px solid #fff;
-    transform:rotate(-45deg);
-  }
-
-  /* ACTO 4 — DECISIÓN */
-  .decision{
-    background:var(--navy);
-    color:#fff;
-    padding:56px 0;
-    text-align:center;
-  }
-  .decision h2{
-    max-width:none;
-    margin:0 auto 28px;
-    color:#fff;
-  }
-  .price-card{
-    background:var(--navy-2);
-    border-radius:16px;
-    padding:36px 34px 32px;
-    text-align:left;
-    max-width:640px;
-    margin:0 auto;
-    border:1px solid rgba(255,255,255,0.08);
-  }
-  .price-row{
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:16px;
-  }
-  .price{font-size:3.4rem;font-weight:700;letter-spacing:-0.02em;}
-  .price-unit{font-size:1.05rem;color:#D5E3EA;}
-  .pill{
-    display:inline-block;
-    background:var(--teal);
-    color:#fff;
-    font-weight:700;
-    font-size:0.85rem;
-    padding:8px 18px;
-    border-radius:20px;
-    margin-bottom:24px;
-  }
-  .price-list{
-    list-style:none;
-    margin:0;
-    padding:0;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px 20px;
-  }
-  .price-list li{
-    display:flex;
-    gap:10px;
-    align-items:flex-start;
-    font-size:0.92rem;
-    line-height:1.45;
-    color:#fff;
-  }
-  .check{
-    flex:0 0 auto;
-    width:18px;height:18px;
-    border-radius:50%;
-    background:var(--teal);
-    position:relative;
-    margin-top:2px;
-  }
-  .check::after{
-    content:"";position:absolute;left:5px;top:8px;
-    width:7px;height:4px;
-    border-left:2px solid #fff;border-bottom:2px solid #fff;
-    transform:rotate(-45deg);
-  }
-  .price-footnote{
-    font-size:0.88rem;
-    line-height:1.5;
-    color:#D5E3EA;
-    max-width:480px;
-    margin:16px auto 0;
-    text-align:center;
-  }
-  .closing-lines{margin:36px 0 12px;}
-  .closing-lines p{
-    margin:0;
-    line-height:1.4;
-  }
-  .closing-wait{
-    font-size:1.05rem;
-    color:#D5E3EA;
-    font-weight:400;
-    margin-bottom:6px;
-  }
-  .closing-bold{
-    font-size:clamp(1.35rem,4vw,1.75rem);
-    font-weight:700;
-    color:#fff;
-  }
-  .trial-note{
-    font-size:0.92rem;
-    color:#D5E3EA;
-    margin:0 0 28px;
-    line-height:1.5;
-  }
-  .cta{
-    display:inline-block;
-    background:var(--teal);
-    color:#fff;
-    text-align:center;
-    text-decoration:none;
-    font-weight:700;
-    font-size:1.1rem;
-    padding:20px 32px;
-    border-radius:32px;
-    transition:background .15s ease;
-  }
-  .cta:hover{background:var(--teal-dark);}
-  .cta:focus-visible{outline:3px solid #fff;outline-offset:3px;}
-
-  footer{
-    padding:26px 0 40px;
-    display:flex;
-    justify-content:space-between;
-    font-size:0.85rem;
-    color:var(--grey);
-    border-top:1px solid var(--line);
-  }
-
-  @media (max-width:720px){
-    .problem-grid{grid-template-columns:1fr;}
-    .steps{grid-template-columns:1fr;}
-    .price-list{grid-template-columns:1fr;}
-  }
-  @media (max-width:640px){
-    .hero{padding:36px 0 44px;}
-    section{padding:40px 0;}
-    .decision{padding:40px 0;}
-    .price-card{padding:28px 22px;}
-    .price{font-size:2.6rem;}
-  }
-</style>
+<title>Recoba — No envíes presupuestos. Cierra trabajos.</title>
+<meta name="description" content="No envíes presupuestos. Cierra trabajos. Presupuesta, firma y cobra en minutos sin perseguir respuestas, firmas ni pagos.">
+<meta name="theme-color" content="#FAF9F6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="topbar"></div>
 
-  <!-- ACTO 1 — QUÉ ES -->
-  <div class="hero">
-    <div class="wrap">
-      <div class="logo">recoba<span>.app</span></div>
-      <div class="eyebrow light">Qué es</div>
-      <h1>De un presupuesto a un tratamiento. <em>En 5 minutos.</em></h1>
-      <p class="hero-sub">Elimina el "me lo pienso" antes de que el paciente salga de la clínica.</p>
-      <div class="flow-sequence">
-        Presupuesto <span>→</span> Firma <span>→</span> Dinero
-      </div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="#top">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="6" class="icon"/><path d="M7 12.5l3.2 3.2L17 8.5" class="icon"/></svg>
+      Recoba
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#how">Cómo funciona</a>
+      <a href="#control">Control</a>
+      <a href="#pricing">Precio</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+    <div class="header-actions">
+      <a class="nav-cta" href="#pricing">Probar Recoba</a>
     </div>
   </div>
+</header>
 
-  <!-- ACTO 2 — EL PROBLEMA -->
-  <section>
-    <div class="wrap">
-      <div class="eyebrow">El problema</div>
-      <h2>¿Cuántos tratamientos pierdes después de haber hecho el trabajo?</h2>
-      <div class="problem-grid">
-        <div class="problem-face patient">
-          <h3>El paciente se va</h3>
-          <p class="quote-large">"Me lo pienso."</p>
-          <p>Cuando sale por la puerta, el presupuesto deja de ser una decisión. Llamadas, WhatsApps, seguimientos. Y, muchas veces, nada.</p>
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>No envíes presupuestos.<br>Cierra trabajos.</h1>
+        <p class="hero-lede">Presupuesta, firma y cobra en minutos. Sin perseguir respuestas, firmas ni pagos.</p>
+        <p class="hero-body">Genera el presupuesto delante de tu cliente, consigue la firma y cobra la entrada antes de que la decisión se enfríe.</p>
+        <p class="hero-tagline">Del «te lo mando» al «ya podemos empezar».</p>
+        <div class="cta-row">
+          <a class="btn-primary" href="#pricing">Probar Recoba</a>
+          <a class="link-secondary" href="#how">Ver cómo funciona</a>
         </div>
-        <div class="problem-face clinic">
-          <h3>La clínica hace de banco</h3>
-          <p>Si el paciente paga a plazos en recepción, el riesgo es tuyo.</p>
-          <div class="risk-chips">
-            <span class="chip">Impagos</span>
-            <span class="chip">Abandonos</span>
-            <span class="chip">Discusiones</span>
-            <span class="chip">Sin cobrar</span>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="phone-mock">
+          <div class="phone-bezel">
+            <div class="phone-island"></div>
+            <div class="phone-screen">
+              <div class="phone-status">
+                <span>9:41</span>
+              </div>
+              <div class="phone-brand">
+                <svg viewBox="0 0 24 24" class="icon"><rect x="1" y="1" width="22" height="22" rx="6"/><path d="M7 12.5l3.2 3.2L17 8.5"/></svg>
+                <span>Recoba</span>
+              </div>
+              <div class="phone-job">Reforma de cocina</div>
+              <div class="phone-price-lbl">Presupuesto</div>
+              <div class="phone-price">7.500&nbsp;€</div>
+              <div class="phone-checks">
+                <div class="phone-check-row"><span class="dot"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span>Presupuesto aceptado</span></div>
+                <div class="phone-check-row"><span class="dot"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span>Contrato firmado</span></div>
+                <div class="phone-check-row"><span class="dot"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span>Entrada pagada</span></div>
+                <div class="phone-check-row final"><span class="dot"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span>Trabajo reservado</span></div>
+              </div>
+              <div class="phone-home"></div>
+            </div>
           </div>
         </div>
       </div>
-      <p class="problem-bridge">Recoba está diseñada para que la decisión ocurra cuando el paciente está delante de ti.</p>
     </div>
   </section>
 
-  <!-- ACTO 3 — CÓMO FUNCIONA -->
-  <section class="solution">
+  <!-- PROBLEMA -->
+  <section class="problem">
     <div class="wrap">
-      <div class="eyebrow teal">Cómo funciona</div>
-      <h2>No entregues presupuestos. Cierra tratamientos.</h2>
-      <p class="solution-intro"><strong>Recoba no es otra herramienta para tu clínica. Es la última parte del presupuesto.</strong> Lo que falta muchas veces ocurre en los últimos cinco minutos: que el paciente pase de querer hacerlo a hacerlo.</p>
+      <div class="kicker">El problema</div>
+      <h2 class="problem-thesis">El momento de cerrar un trabajo es cuando el cliente dice que sí.</h2>
+      <div class="problem-grid">
+        <div>
+          <h3 class="problem-subhead">El presupuesto no es el problema.</h3>
+          <p class="lede">El problema es todo lo que ocurre después.</p>
+          <blockquote class="quote-block">«Te preparo el presupuesto y te lo mando.»</blockquote>
+          <p class="problem-pivot">Y ahí empieza la espera.</p>
+        </div>
+        <div>
+          <ul class="rhythm-list">
+            <li>«Lo comparo con otro.»</li>
+            <li>«Se lo tengo que comentar a mi pareja.»</li>
+            <li>«Me lo voy a pensar.»</li>
+          </ul>
+          <p class="problem-bridge">Y tú acabas persiguiendo un trabajo que hace unas horas parecía cerrado.</p>
+          <p class="punch">Cada hora que pasa entre el «sí» y el pago es una oportunidad para que ese trabajo deje de existir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section id="how">
+    <div class="wrap">
+      <div class="kicker">Cómo funciona</div>
+      <h2>Cuando el cliente dice que sí, hazlo ahora.</h2>
+      <p class="lede">Recoba convierte el momento de la decisión en un único flujo.</p>
+
       <div class="steps">
         <div class="step">
-          <div class="badge">01</div>
-          <h3>Presupuesto</h3>
-          <p>Preparas el tratamiento delante del paciente y muestras cómo puede pagarlo. No se va a pensarlo porque ya sabe cómo hacerlo.</p>
+          <svg class="step-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" class="icon"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4" class="icon"/></svg>
+          <div class="step-num">01</div>
+          <h3>Presupuesta en un minuto</h3>
+          <p>Introduce los datos clave y genera una propuesta profesional delante del cliente.</p>
+          <div class="fine">Lo que antes preparabas después, lo haces ahora delante del cliente.</div>
         </div>
         <div class="step">
-          <div class="badge">02</div>
-          <h3>Firma</h3>
-          <p>Firma digitalmente cada fase con validez legal eIDAS. Tu presupuesto deja de ser una propuesta y se convierte en un compromiso.</p>
+          <svg class="step-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18c3-4 4-7 5.5-8.5a2.1 2.1 0 0 1 3 3C11 14 8 15 4 18z" class="icon"/><path d="M14.5 6.5l3 3M16 4l4 4" class="icon"/></svg>
+          <div class="step-num">02</div>
+          <h3>Firma en el mismo momento</h3>
+          <p>El cliente revisa y firma desde su móvil. Sin imprimir, sin escanear.</p>
+          <div class="fine">Firma electrónica con validez legal conforme a eIDAS.</div>
         </div>
         <div class="step">
-          <div class="badge">03</div>
-          <h3>Dinero</h3>
-          <p>Tramitas la financiación desde Recoba. El paciente valida desde su móvil y tu financiera te ingresa el dinero en minutos.</p>
+          <svg class="step-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2.2" class="icon"/><path d="M3 10.5h18" class="icon"/><path d="M7 15h4" class="icon"/></svg>
+          <div class="step-num">03</div>
+          <h3>Cobra y reserva el trabajo</h3>
+          <p>El cliente paga la entrada, la reserva o el total desde la misma pantalla.</p>
+          <div class="fine">Tarjeta · Apple Pay · Google Pay · Bizum · Klarna</div>
         </div>
       </div>
-      <p class="steps-closing">Una conversación. Una decisión. Un tratamiento cerrado.</p>
     </div>
   </section>
 
-  <!-- FRANJA CONFIANZA -->
-  <div class="trust-strip">
+  <!-- ESTADOS -->
+  <section class="problem" id="control">
     <div class="wrap">
-      <div class="trust-items">
-        <div class="trust-item"><span class="trust-icon"></span> Firmas digitales eIDAS</div>
-        <div class="trust-item"><span class="trust-icon"></span> Conexión con tu financiera</div>
-        <div class="trust-item"><span class="trust-icon"></span> Plantillas jurídicas integradas</div>
-        <div class="trust-item"><span class="trust-icon"></span> Soporte de puesta en marcha</div>
-      </div>
-    </div>
-  </div>
+      <div class="kicker">Control</div>
+      <h2>Deja de preguntarte qué ha pasado con cada presupuesto.</h2>
+      <p class="lede">Cada operación tiene un estado claro, y Recoba te avisa cuando cambia.</p>
 
-  <!-- ACTO 4 — DECISIÓN -->
-  <section class="decision">
-    <div class="wrap">
-      <div class="eyebrow light">Precio</div>
-      <h2>¿Cuánto vale para ti un tratamiento que no se pierde?</h2>
-      <div class="price-card">
-        <div class="price-row">
-          <span class="price">59 €</span>
-          <span class="price-unit">/ mes por clínica</span>
+      <div class="states-diagram">
+        <div class="states-track">
+          <div class="state-node active"><span class="dot"></span><span class="st-label">Aceptado</span></div>
+          <div class="state-connector active"></div>
+          <div class="state-node active"><span class="dot"></span><span class="st-label">Firmado</span></div>
+          <div class="state-connector"></div>
+          <div class="state-node"><span class="dot"></span><span class="st-label">Pagado</span></div>
+          <div class="state-connector"></div>
+          <div class="state-node"><span class="dot"></span><span class="st-label">Reservado</span></div>
         </div>
-        <span class="pill">Cero comisiones por financiación</span>
-        <ul class="price-list">
-          <li><span class="check"></span>Presupuestos configurables</li>
-          <li><span class="check"></span>Conexión con tu financiera</li>
-          <li><span class="check"></span>Firmas eIDAS ilimitadas</li>
-          <li><span class="check"></span>Protege tu trabajo</li>
-          <li><span class="check"></span>Plantillas jurídicas</li>
-          <li><span class="check"></span>Soporte para tu equipo</li>
+      </div>
+      <p class="punch">Abres Recoba y sabes qué dinero está realmente cerrado.</p>
+    </div>
+  </section>
+
+  <!-- MENOS TRABAJO INVISIBLE -->
+  <section>
+    <div class="wrap">
+      <div class="kicker">Menos trabajo invisible</div>
+      <svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 6l1.2 13a2 2 0 0 0 2 1.8h9.6a2 2 0 0 0 2-1.8L20 6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M9 11l2.2 2.2L15.5 9"/></svg>
+      <h2>Hay una parte de tu trabajo que nadie te paga.</h2>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Perseguir respuestas</li>
+        <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Preparar contratos</li>
+        <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Pedir firmas y justificantes</li>
+        <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Comprobar si llegó la transferencia</li>
+      </ul>
+      <p class="punch">Recoba elimina las horas que pierdes en trabajos que no sabes si cobrarás.</p>
+    </div>
+  </section>
+
+  <!-- PERCEPCIÓN -->
+  <section class="problem">
+    <div class="wrap">
+      <div class="kicker">Percepción</div>
+      <h2>Tu cliente también tiene que notar que está contratando a un profesional.</h2>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="num">5.000 €</div>
+          <div class="lbl">Reforma de baño</div>
+        </div>
+        <div class="stat">
+          <div class="num">7.000 €</div>
+          <div class="lbl">Instalación de climatización</div>
+        </div>
+        <div class="stat">
+          <div class="num">12.000 €</div>
+          <div class="lbl">Proyecto integral</div>
+        </div>
+      </div>
+      <p class="punch punch--spaced">Tu cliente recibe una experiencia acorde al importe que está pagando.</p>
+    </div>
+  </section>
+
+  <!-- CRECIMIENTO -->
+  <section>
+    <div class="wrap">
+      <div class="kicker">Crecimiento</div>
+      <svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17l5-5 4 4 7-8"/><path d="M15 8h5v5"/></svg>
+      <h2>Transforma presupuestos en fechas en tu calendario.</h2>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Más presupuestos que llegan a una decisión.</li>
+        <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Más trabajos que llegan realmente a tu calendario.</li>
+        <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Más trabajos listos para empezar.</li>
+      </ul>
+      <p class="punch">Recoba acorta la distancia entre el «me interesa» y el «ya podemos empezar».</p>
+    </div>
+  </section>
+
+  <!-- PRECIO -->
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <div class="kicker">Precio</div>
+      <h2>¿Cuánto te cuesta perder un solo trabajo al mes?</h2>
+      <p class="pricing-lede">El margen de un solo presupuesto recuperado cubre la suscripción durante todo un año.</p>
+      <div class="price-card">
+        <div>
+          <div class="price-tag">59&nbsp;€<span class="per"> / mes</span></div>
+          <p class="price-note">Sin permanencia.</p>
+          <a class="btn-primary" href="mailto:hola@recoba.app">Probar Recoba</a>
+        </div>
+        <ul class="price-features">
+          <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Presupuestos profesionales</li>
+          <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Contratos personalizados</li>
+          <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Firma digital</li>
+          <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Cobros online</li>
+          <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Notificaciones automáticas</li>
+          <li><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Control de cada operación</li>
         </ul>
       </div>
-      <p class="price-footnote">Un único tratamiento recuperado puede pagar Recoba durante meses.</p>
-      <div class="closing-lines">
-        <p class="closing-wait">La clínica que entrega presupuestos espera.</p>
-        <p class="closing-bold">La clínica que los cierra, decide.</p>
-      </div>
-      <p class="trial-note">Prueba Recoba gratis durante 7 días. Sin compromiso.</p>
-      <a class="cta" href="mailto:hola@recoba.app">Contacta con nosotros</a>
     </div>
   </section>
 
-  <div class="wrap">
-    <footer>
-      <span>recoba.app</span>
-      <span>&copy; 2026 Recoba</span>
-    </footer>
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="kicker">Preguntas frecuentes</div>
+      <h2>Lo que suelen preguntarnos antes de empezar.</h2>
+      <p class="lede">Respuestas directas sobre cómo funciona Recoba en tu día a día.</p>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>¿Qué somos y qué no somos?</summary>
+          <div class="faq-answer">
+            No somos un CRM, un ERP ni gestionamos inventario. Somos una herramienta centrada en aumentar al máximo la conversión en el momento de cerrar. Somos tu aliado en el último metro.
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cuánto puedo ganar exactamente?</summary>
+          <div class="faq-answer">
+            Al eliminar la fricción entre la decisión del cliente y el pago, aprovechas el momento en caliente. Le das al cliente todas las facilidades — firma desde su móvil y pago con tarjeta, Apple Pay o Bizum — justo cuando quiere contratarte. En números reales: ganar un solo presupuesto extra al mes ya multiplica por diez tu inversión en Recoba.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <a class="logo" href="#top">
+      <svg class="mark" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="6" class="icon"/><path d="M7 12.5l3.2 3.2L17 8.5" class="icon"/></svg>
+      Recoba
+    </a>
+    <div class="footer-links">
+      <a href="#">Privacidad</a>
+      <a href="#">Términos</a>
+      <a href="mailto:hola@recoba.app">Contacto</a>
+    </div>
   </div>
+</footer>
+
 </body>
 </html>
